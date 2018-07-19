@@ -1,0 +1,163 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<HTML>
+<HEAD>
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+	<script language="JavaScript" type="text/JavaScript" src="./lib/jquery/jquery-1.10.2.min.js"></script>
+	<script language="JavaScript" type="text/JavaScript" src="./lib/jquery-ui-1.12.1/jquery-ui.min.js"></script>
+	<script language="JavaScript" type="text/JavaScript" src="./lib/jquery/jquery.xmlrpc.js"></script>
+	<script language="JavaScript" type="text/JavaScript" src="./lib/raphael.min.js"></script>
+	
+	<script language="JavaScript" type="text/JavaScript" src="./lib/progressStep.min.js"></script>
+	
+	<link href="./lib/jquery-ui-1.12.1/jquery-ui.min.css" rel="stylesheet" type="text/css"></link>
+	<link href="./lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"></link>
+
+
+    <script language="JavaScript" type="text/JavaScript" src="./lib/incidentForm.js"></script>
+    <link href="./lib/incidentForm.css" rel="stylesheet" type="text/css"></link>
+
+	 
+	<TITLE>Transmission d'incident</TITLE>
+	<HTA:APPLICATION ID="oHTA"
+		 APPLICATIONNAME="TransmetIncident"
+		 BORDER="thick"
+		 BORDERSTYLE="normal"
+		 CAPTION="yes"
+		 ICON="c:\windows\notepad.exe,1"
+		 MAXIMIZEBUTTON="no"
+		 MINIMIZEBUTTON="no"
+		 SHOWINTASKBAR="no"
+		 SINGLEINSTANCE="yes"
+		 SYSMENU="yes"
+		 VERSION="1.0"
+		 WINDOWSTATE="normal"/>
+		 
+	 
+</HEAD>
+<BODY >
+
+<div class="templates hidden">
+	<button type="button" class="btn btn-default btnTmp" value="">
+		<h4 class="list-group-item-heading">text</h4>
+	</button>
+	
+	<div class="row step stepTemplate"></div>
+	
+	<div class="userForm text-left" style="max-width:800px;">
+		
+		  <div class="form-group">
+			<label  class="control-label" for="lastName">Nom*</label>
+			<input type="text" class="form-control mandatory" id="lastName" placeholder="Nom">
+		  </div>
+		  <div class="form-group">
+			<label class="control-label" for="firstName">Prénom*</label>
+			<input type="text" class="form-control mandatory" id="firstName" placeholder="Prénom">
+		  </div>
+		  <div class="form-group">
+			<label class="control-label"  for="phone">Téléphone*</label>
+			<input type="text" class="form-control mandatory" id="phone" placeholder="Téléphone">
+				
+		  </div>
+		  <div class="form-group">
+			<label  class="control-label" for="mail">Mail</label>
+			<input type="email" class="form-control" id="mail" placeholder="Mail">
+		  </div>
+		   <div class="form-group hidden">
+			<label  class="control-label" for="location">Etablissement : </label>
+			<select class="form-control" id="location" placeholder="Etablissement">
+			
+			</select>
+			
+			
+		  </div>
+		  
+		  <legend>Les champs marqués d'une étoile sont obligatoires</legend>
+		
+		
+		<button type="submit" class="btn btn-default ">Valider</button>
+		
+
+	</div>
+	
+	<div class="descForm text-left" style="">
+	
+		<div class="form-group">
+			<label class="control-label"  for="titre">Résumé</label>
+			<input type="text" class="form-control" id="titre" placeholder="Résumé">
+		</div>
+		<div class="form-group descGroup">
+			<label class="control-label"  for="description">Description*</label>
+			<textarea class="form-control mandatory" rows="10" id="description" placeholder="Description"></textarea>
+		</div>
+		<div class="form-group">
+			<label class="control-label"  for="ipp">IPP/IEP Patient (si nécessaire)</label>
+			<input type="text" class="form-control" id="ipp" placeholder="IPP/IEP">
+		</div>
+		<div class="checkbox">
+		  <label>
+			<input type="checkbox" value="" checked="checked" id="includeScreen">
+			Inclure l'impression d'écran
+		  </label>
+		</div>
+		
+		<button type="submit" class="btn btn-default ">Valider</button>
+		
+		
+	
+	</div>
+	
+	<div class="loader">&nbsp;</div>
+	
+	<div class="alert alert-danger error" role="alert">Un problème technique est survenu, merci d'utiliser l'ancien formulaire : <a href="./TransmetIncident_old.HTA" class="btn btn-danger" >formulaire</a>.</div>
+	
+
+</div>
+
+
+<div class="container">
+	
+	<div class="row title">
+		<h3 class="text-center">Transmission d'Incidents</h3>
+	</div>
+	<div id="progressBar"></div>
+	<div class="row tools hidden">
+		<div class="main col-md-12">
+			<button type="button" class="btn btn-default btn-reinit">
+				<span class="glyphicon glyphicon-repeat" aria-hidden="true"></span>
+			</button>
+		</div>
+	
+	</div>
+	
+	<div class="row">
+						
+		<div class="mainform text-center col-md-12">
+		
+		
+
+			
+		
+		
+		
+		</div>
+
+	</div>
+
+
+	
+
+
+</div>
+
+
+<script language="javascript">
+
+
+
+</script>
+
+
+
+</BODY>
+
+</html>

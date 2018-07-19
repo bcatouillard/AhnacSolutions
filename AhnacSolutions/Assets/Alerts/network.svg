@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   version="1.1"
+   viewBox="0 0 439.48 439.48"
+   enable-background="new 0 0 439.48 439.48"
+   id="svg2"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="network.svg">
+  <metadata
+     id="metadata20">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs18" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     id="namedview16"
+     showgrid="false"
+     inkscape:zoom="1.5188604"
+     inkscape:cx="332.94955"
+     inkscape:cy="152.91582"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="g4" />
+  <g
+     id="g4"
+     style="fill:#ff0000"
+     inkscape:export-filename="C:\AHNAC\DEV\AHNAC_notifications\Images\network_critic.png"
+     inkscape:export-xdpi="90"
+     inkscape:export-ydpi="90">
+    <path
+       d="m146.566,141.888h65.674v9h-47.5c-4.143,0-7.5,3.358-7.5,7.5s3.357,7.5 7.5,7.5h110c4.143,0 7.5-3.358 7.5-7.5s-3.357-7.5-7.5-7.5h-47.5v-9h65.674c12.311,0 22.326-10.016 22.326-22.326v-94.348c0-12.311-10.016-22.326-22.326-22.326h-146.348c-12.311,0-22.326,10.015-22.326,22.326v94.348c-1.42109e-14,12.31 10.016,22.326 22.326,22.326zm146.348-15h-146.348c-4.04,0-7.326-3.287-7.326-7.326v-5.197h161v5.197c0,4.039-3.286,7.326-7.326,7.326zm-146.348-109h146.348c4.04-3.55271e-15 7.326,3.286 7.326,7.326v74.151h-161v-74.151c0-4.04 3.286-7.326 7.326-7.326z"
+       id="path6"
+       style="fill:#ffcc00;fill-opacity:1"
+       inkscape:export-filename="C:\AHNAC\DEV\AHNAC_notifications\Images\network_warning.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       d="m56.5,257.976c4.143,0 7.5-3.358 7.5-7.5v-19.693h148.24v19.693c0,4.142 3.357,7.5 7.5,7.5s7.5-3.358 7.5-7.5v-19.693h148.24v19.693c0,4.142 3.357,7.5 7.5,7.5s7.5-3.358 7.5-7.5v-27.193c0-4.142-3.357-7.5-7.5-7.5h-155.74v-34.498c0-4.142-3.357-7.5-7.5-7.5s-7.5,3.358-7.5,7.5v34.498h-155.74c-4.143,0-7.5,3.358-7.5,7.5v27.193c0,4.142 3.357,7.5 7.5,7.5z"
+       id="path8"
+       style="fill:#ffcc00;fill-opacity:1"
+       inkscape:export-filename="C:\AHNAC\DEV\AHNAC_notifications\Images\network_warning.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       d="m90.645,271.593h-68.29c-12.327,0-22.355,10.029-22.355,22.355v120.289c0,12.327 10.028,22.355 22.355,22.355h68.289c12.327,0 22.355-10.029 22.355-22.355v-120.289c0.001-12.326-10.027-22.355-22.354-22.355zm-68.29,15h68.289c4.056,0 7.355,3.3 7.355,7.355v103.645h-82.999v-103.645c0-4.055 3.3-7.355 7.355-7.355zm68.29,135h-68.29c-4.056,0-7.355-3.3-7.355-7.355v-1.645h83v1.645c0,4.055-3.3,7.355-7.355,7.355z"
+       id="path10"
+       style="fill:#ffcc00;fill-opacity:1"
+       inkscape:export-filename="C:\AHNAC\DEV\AHNAC_notifications\Images\network_warning.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       d="m253.885,271.593h-68.289c-12.327,0-22.355,10.029-22.355,22.355v120.289c0,12.327 10.028,22.355 22.355,22.355h68.289c12.327,0 22.355-10.029 22.355-22.355v-120.289c0-12.326-10.028-22.355-22.355-22.355zm-68.289,15h68.289c4.056,0 7.355,3.3 7.355,7.355v103.645h-83v-103.645c0-4.055 3.3-7.355 7.356-7.355zm68.289,135h-68.289c-4.056,0-7.355-3.3-7.355-7.355v-1.645h83v1.645c-0.001,4.055-3.301,7.355-7.356,7.355z"
+       id="path12"
+       style="fill:#ffcc00;fill-opacity:1"
+       inkscape:export-filename="C:\AHNAC\DEV\AHNAC_notifications\Images\network_warning.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       d="m417.125,271.593h-68.289c-12.327,0-22.355,10.029-22.355,22.355v120.289c0,12.327 10.028,22.355 22.355,22.355h68.289c12.327,0 22.355-10.029 22.355-22.355v-120.289c0-12.326-10.028-22.355-22.355-22.355zm-68.289,15h68.289c4.056,0 7.355,3.3 7.355,7.355v103.645h-83v-103.645c0-4.055 3.3-7.355 7.356-7.355zm68.289,135h-68.289c-4.056,0-7.355-3.3-7.355-7.355v-1.645h83v1.645c-0.001,4.055-3.3,7.355-7.356,7.355z"
+       id="path14"
+       style="fill:#ffcc00;fill-opacity:1"
+       inkscape:export-filename="C:\AHNAC\DEV\AHNAC_notifications\Images\network_warning.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+  </g>
+  <path
+     style="opacity:0.97899996;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1.20000005;stroke-miterlimit:0;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+     d="m 139.66526,60.840847 c 0,-31.254385 0.46181,-37.572871 2.92632,-40.037374 2.56239,-2.562397 12.15672,-2.92632 77.14843,-2.92632 64.9917,0 74.58603,0.363923 77.14842,2.92632 2.46451,2.464503 2.92632,8.782989 2.92632,40.037374 l 0,37.111054 -80.07474,0 -80.07475,0 0,-37.111054 z"
+     id="path4148"
+     inkscape:connector-curvature="0"
+     inkscape:export-filename="C:\AHNAC\DEV\AHNAC_notifications\Images\network_critic.png"
+     inkscape:export-xdpi="90"
+     inkscape:export-ydpi="90" />
+  <path
+     style="opacity:0.97899996;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1.20000005;stroke-miterlimit:0;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+     d="m 141.8999,123.65031 c -1.22905,-1.22906 -2.23464,-3.74303 -2.23464,-5.58661 0,-3.17585 4.2072,-3.35197 80.07475,-3.35197 75.86754,0 80.07474,0.17612 80.07474,3.35197 0,7.68464 -1.39869,7.82125 -80.07474,7.82125 -56.32131,0 -76.17544,-0.56997 -77.84011,-2.23464 z"
+     id="path4150"
+     inkscape:connector-curvature="0"
+     inkscape:export-filename="C:\AHNAC\DEV\AHNAC_notifications\Images\network_critic.png"
+     inkscape:export-xdpi="90"
+     inkscape:export-ydpi="90" />
+  <path
+     style="opacity:0.97899996;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1.20000005;stroke-miterlimit:0;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+     d="m 178.77153,344.1352 c 0,-37.78204 0.60376,-52.37303 2.23464,-54.0039 3.15584,-3.15584 74.31183,-3.15584 77.46767,0 1.63088,1.63087 2.23464,16.22186 2.23464,54.0039 l 0,51.76925 -40.96847,0 -40.96848,0 0,-51.76925 z"
+     id="path4152"
+     inkscape:connector-curvature="0"
+     inkscape:export-filename="C:\AHNAC\DEV\AHNAC_notifications\Images\network_critic.png"
+     inkscape:export-xdpi="90"
+     inkscape:export-ydpi="90" />
+  <path
+     style="opacity:0.97899996;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1.20000005;stroke-miterlimit:0;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+     d="m 181.00617,417.87845 c -1.22905,-1.22905 -2.23464,-2.90504 -2.23464,-3.72441 0,-0.81937 18.43581,-1.48976 40.96848,-1.48976 22.53266,0 40.96847,0.67039 40.96847,1.48976 0,5.14357 -5.60643,5.95906 -40.96847,5.95906 -25.90532,0 -37.1478,-0.64861 -38.73384,-2.23465 z"
+     id="path4156"
+     inkscape:connector-curvature="0"
+     inkscape:export-filename="C:\AHNAC\DEV\AHNAC_notifications\Images\network_critic.png"
+     inkscape:export-xdpi="90"
+     inkscape:export-ydpi="90" />
+  <path
+     style="opacity:0.97899996;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1.20000005;stroke-miterlimit:0;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+     d="m 14.897627,346.67729 c 0,-27.74318 0.798883,-51.32838 1.830514,-54.04178 l 1.830513,-4.81461 38.672411,0.50342 38.672412,0.50343 0.494108,53.53835 0.494109,53.53835 -40.997034,0 -40.997033,0 0,-49.22716 z"
+     id="path4158"
+     inkscape:connector-curvature="0"
+     inkscape:export-filename="C:\AHNAC\DEV\AHNAC_notifications\Images\network_critic.png"
+     inkscape:export-xdpi="90"
+     inkscape:export-ydpi="90" />
+  <path
+     style="opacity:0.97899996;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1.20000005;stroke-miterlimit:0;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+     d="m 16.779911,416.42621 c -1.991797,-3.72171 -1.573143,-3.76193 39.157217,-3.76193 38.207191,0 41.125455,0.23457 40.544159,3.25886 -0.568708,2.9588 -4.174054,3.30517 -39.157216,3.76192 -37.019378,0.48334 -38.609814,0.35551 -40.54416,-3.25885 z"
+     id="path4160"
+     inkscape:connector-curvature="0"
+     inkscape:export-filename="C:\AHNAC\DEV\AHNAC_notifications\Images\network_critic.png"
+     inkscape:export-xdpi="90"
+     inkscape:export-ydpi="90" />
+  <path
+     style="opacity:0.97899996;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1.20000005;stroke-miterlimit:0;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+     d="m 343.08243,342.3661 0.4941,-53.53835 38.67242,-0.50343 38.67241,-0.50342 1.83051,4.81461 c 1.03163,2.7134 1.83051,26.2986 1.83051,54.04178 l 0,49.22716 -40.99703,0 -40.99703,0 0.49411,-53.53835 z"
+     id="path4162"
+     inkscape:connector-curvature="0"
+     inkscape:export-filename="C:\AHNAC\DEV\AHNAC_notifications\Images\network_critic.png"
+     inkscape:export-xdpi="90"
+     inkscape:export-ydpi="90" />
+  <path
+     style="opacity:0.97899996;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1.20000005;stroke-miterlimit:0;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+     d="m 365.55415,420.58586 c 10.03926,-0.33548 25.9611,-0.33402 35.38186,0.003 9.42077,0.33727 1.20682,0.61175 -18.2532,0.60996 -19.46003,-0.002 -27.16793,-0.27773 -17.12866,-0.61321 z"
+     id="path4164"
+     inkscape:connector-curvature="0"
+     inkscape:export-filename="C:\AHNAC\DEV\AHNAC_notifications\Images\network_critic.png"
+     inkscape:export-xdpi="90"
+     inkscape:export-ydpi="90" />
+  <path
+     style="opacity:0.97899996;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1.20000005;stroke-miterlimit:0;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+     d="m 345.00554,419.98545 c -1.82732,-1.11419 -3.47492,-4.3121 -3.49327,-6.78026 -0.002,-0.27159 18.66163,-0.4938 41.47479,-0.4938 22.81316,0 41.47681,0.22221 41.47479,0.4938 -0.0184,2.46816 -1.66595,5.66607 -3.49327,6.78026 -2.01149,1.2265 -3.60114,1.28007 -37.98152,1.28007 -34.38038,0 -35.97003,-0.0536 -37.98152,-1.28007 z"
+     id="path4168"
+     inkscape:connector-curvature="0"
+     inkscape:export-filename="C:\AHNAC\DEV\AHNAC_notifications\Images\network_critic.png"
+     inkscape:export-xdpi="90"
+     inkscape:export-ydpi="90" />
+</svg>

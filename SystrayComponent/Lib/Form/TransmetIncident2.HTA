@@ -1,0 +1,188 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <script language="JavaScript" type="text/JavaScript" src="./lib/jquery/jquery-1.10.2.min.js"></script>
+    <script language="JavaScript" type="text/JavaScript" src="./lib/jquery-ui-1.12.1/jquery-ui.min.js"></script>
+    <script language="JavaScript" type="text/JavaScript" src="./lib/jquery/jquery.xmlrpc.js"></script>
+    <script language="JavaScript" type="text/JavaScript" src="./lib/raphael.min.js"></script>
+    <script language="JavaScript" type="text/JavaScript" src="./lib/angular.min.js"></script>
+
+
+    <script language="JavaScript" type="text/JavaScript" src="./lib/progressStep.min.js"></script>
+
+    <link href="./lib/jquery-ui-1.12.1/jquery-ui.min.css" rel="stylesheet" type="text/css"></link>
+    <link href="./lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"></link>
+
+    <script language="JavaScript" type="text/JavaScript" src="./lib/bootstrap/js/bootstrap.js"></script>
+
+    <!-- script language="JavaScript" type="text/JavaScript" src="./lib/incidentForm.js"></script -->
+    <link href="./lib/incidentForm.css" rel="stylesheet" type="text/css"></link>
+
+
+    <title>Transmission d'incident</title>
+    <hta:application id="oHTA"
+        applicationname="TransmetIncident"
+        border="thick"
+        innerBorder="no"
+        borderstyle="normal"
+        caption="yes"
+        icon="c:\windows\notepad.exe,1"
+        maximizebutton="no"
+        minimizebutton="no"
+        showintaskbar="no"
+        singleinstance="yes"
+        sysmenu="yes"
+        version="1.0"
+        windowstate="normal" />
+
+
+</head>
+<body>  
+           
+				<form method="post" action="http://ahnwkf:8080/supportFormulaire/TransmetIncident.php" id="mainform" target="iform" class="hidden" >
+					<input type="text" id="image" name="image"/>
+					<input type="text" id="user" name="user"/>
+					
+				
+				</form>
+				 <a href="#" onclick="javascript:closeWindow();">test</a>
+				<iframe  name="iform" id="iform">test</iframe>
+				
+                
+                <div class="hidden">
+                     <img src="./temp/screenshot.jpg" id="screenshot" class="" />
+                </div>
+
+                            
+           
+
+			
+			<script language="JavaScript" type="text/JavaScript" src="./temp/userInfo.json"></script>
+ 
+
+   <script>
+   
+   var user = {};
+   var image = "";
+   
+   
+   function closeWindow(){
+		alert("closin'");
+		window.close();
+   }
+   // ****************************** //
+   function encodeImg(callback){
+                var c = document.createElement('canvas');
+                var ctx = c.getContext("2d");
+                var img = new Image();
+                img.onload = function () {
+                    c.width = this.width;
+                    c.height = this.height;
+                    ctx.drawImage(img, 0, 0);
+                    var dataURL = c.toDataURL("image/jpeg");
+                   // $(".container").append(c);
+				   image = dataURL.split(',')[1];
+				   callback();
+                };
+				
+				img.setAttribute('crossOrigin', 'anonymous');
+                
+                img.src = $('#screenshot').attr('src');
+               
+			  // callback();
+            }
+			
+    function getSSOName() {
+		var loginSSo = "";
+		try {
+			oFso = new ActiveXObject("SSO_CPX_Agentl.SimpleObject");
+			loginSSo = oFso.GetLoginCarteInseree();
+
+		} catch (err) {
+			// do nothing
+		};
+
+		return loginSSo;
+	}
+
+	 function getWinUsername() {
+		var objUserInfo = new ActiveXObject("WScript.network");
+
+		return objUserInfo.UserName;
+	}
+
+	function getComputername() {
+		var objUserInfo = new ActiveXObject("WScript.network");
+
+		return objUserInfo.ComputerName;
+
+
+	}
+
+	function getIPAddress() {
+		var oShell = new ActiveXObject("WScript.Shell");
+		var test = oShell.exec('cmd /C (for /f "tokens=1,* delims=:" %a in (' + "'ipconfig ^| FIND " + '"Adresse IPv4"' + "') do @echo %b)");
+		var IPAddress = test.StdOut.ReadAll().replace('\r', '');
+
+		return IPAddress;
+	}
+	
+	function getUserInfo(callback) {
+
+                
+
+              $.getJSON('./temp/userInfo.json') 
+				.done(function(data) {
+						user = JSON.parse(data);
+					callback();
+				})
+				
+			  
+			  
+            }
+
+            // ****************************** //
+			
+	$(function() {
+	
+	
+		$("#iform").height($( window ).height());
+		$("#iform").width($( window ).width()-5);
+	
+		
+		encodeImg(function(){
+		
+		            $('#image').val(image);
+				
+				
+					$('#user').val(userInfo);
+					
+					$("#mainform").submit();
+					//window.close();
+				
+				
+				
+		
+			//http://support.ahnac.net/formulaire/TransmetIncident.html
+			
+		
+		});
+    
+	
+	
+	});
+   
+   
+   
+   </script>
+
+
+   
+
+   
+
+
+</body>
+
+</html>

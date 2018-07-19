@@ -1,0 +1,376 @@
+<HTML>
+<HEAD>
+<TITLE>Transmission d'incident</TITLE>
+<HTA:APPLICATION ID="oHTA"
+     APPLICATIONNAME="TransmetIncident"
+     BORDER="thick"
+     BORDERSTYLE="normal"
+     CAPTION="yes"
+     ICON="c:\windows\notepad.exe,1"
+     MAXIMIZEBUTTON="no"
+     MINIMIZEBUTTON="no"
+     SHOWINTASKBAR="no"
+     SINGLEINSTANCE="yes"
+     SYSMENU="yes"
+     VERSION="1.0"
+     WINDOWSTATE="normal"/>
+
+</HEAD>
+<BODY BGCOLOR='#66DDDD'>
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+
+// -->
+</SCRIPT>
+<SCRIPT LANGUAGE="VBScript">
+<!--	'N.B.: Il faut placer les scripts en VBScript après ceux en JavaScript ?!?!
+Option explicit
+Sub Window_onLoad 
+	Dim sComputerName, sUserName
+	Dim oNetwork, oFso, oShell
+
+	Set oNetwork = CreateObject("WScript.Network")
+	sComputerName = oNetwork.ComputerName
+	sUserName = oNetwork.UserName
+	Set oNetwork = Nothing
+
+	document.getElementById("Utilisateur").value = sUserName
+	window.moveTo 10,5
+	window.resizeTo 800,670
+	Set oFso = CreateObject("Scripting.FileSystemObject")		
+	If oFso.FileExists("C:\ScriptsDosi\AdresseIP.txt") Then
+		oFso.DeleteFile "C:\ScriptsDosi\AdresseIP.txt", True
+	End If
+	Set oFso = Nothing
+	Set oShell = CreateObject("WScript.Shell")
+	oShell.Run "cmd /C ipconfig | FIND ""Adresse IPv4"" >C:\ScriptsDosi\AdresseIP.txt", False
+	
+	window.focus		' n'a pas d'effet !!!!
+End Sub
+Sub Window_onUnload
+
+End Sub
+Sub Envoyer
+	Dim i, nMailErr, sHtml, sSubject, sScriptDir, sComputerName, sUserName, nTypeInc, nTypeIncNeSaisPas, nHardCopy, sTypeReduit
+	Dim oMail, oAutoIt, oNetwork, oElt, oElts, oFso, oFile, oShell
+	Dim sTime, sBuf, sFilePath, sNotMailed
+	Dim sUtilisateur, sContexte, sIncident, sIPP
+	Dim nRep
+	Dim sFrom, sTo, sCc, sBcc
+	Dim sLoginSSO
+	Dim sDebug
+
+	' ************************** à modifier dans le cas où on rajoute des items *****************************
+	nTypeIncNeSaisPas = 21
+	' *******************************************************************************************************
+	
+	nTypeInc = QuelRadioChecked ("TypeIncident")
+	nHardCopy = QuelRadioChecked ("HardCopy")
+
+	sBuf = Trim(document.getElementById("Incident").value)
+	If Len(sBuf) < 5 Then
+		MsgBox "Veuillez décrire l'incident S.V.P."
+		Exit Sub
+	End If		
+	If nTypeInc = nTypeIncNeSaisPas Then
+		nRep =   MsgBox("La sélection d'un type d'incident (autre que 'Ne sais pas')" & vbCrLf & "permet de cibler le correspondant informatique" & vbCrLf &_
+				"et donc d'accélérer le processus de résolution." & vbCrLf &_
+				"Souhaitez-vous le préciser avant envoi ?",vbYesNo)
+		If nRep = vbYes Then
+			Exit Sub
+		End If
+	End If
+
+
+	
+	sUtilisateur = document.getElementById("Utilisateur").value
+	sContexte = document.getElementById("Contexte").value
+	sIncident = document.getElementById("Incident").value
+	sIPP = document.getElementById("IEPIPP").value
+	
+	sScriptDir = "c:\ScriptsDOSI"
+	Set oNetwork = CreateObject("WScript.Network")
+	sComputerName = oNetwork.ComputerName
+	sUserName = oNetwork.UserName
+	Set oNetwork = Nothing
+
+	sFilePath = "C:\ScriptsDosi\hc001.jpg"
+
+	sHtml = "<h3><BR>Veuillez patienter, S.V.P. ...<BR>Votre rapport d'incident<BR>est en cours de transmission<BR>au service informatique</h3>"	
+	document.body.innerHTML = sHtml
+	
+			' Calcul de la Date/Heure
+	sTime = Right(Year(Now),2)
+	sBuf = Month(Now)
+	If sBuf < 10 Then sTime = sTime & "0"
+	sTime = sTime & sBuf
+	sBuf = Day(Now)
+	If sBuf < 10 Then sTime = sTime & "0"
+	sTime = sTime & sBuf
+	sBuf = Hour(Now)
+	If sBuf < 10 Then sTime = sTime & "0"
+	sTime = sTime & sBuf
+	sBuf = Minute(Now)
+	If sBuf < 10 Then sTime = sTime & "0"
+	sTime = sTime & sBuf
+	sBuf = Second(Now)
+	If sBuf < 10 Then sTime = sTime & "0"
+	sTime = sTime & sBuf
+
+	sFrom = sTo = sCc = ""
+	nMailErr = 1
+
+	On Error Resume Next
+	Err.Clear
+	sLoginSSO = ""
+	Set oFso = CreateObject("SSO_CPX_Agent.SimpleObject")	
+	If Err.Number = 0 Then
+		sLoginSSO = oFso.GetLoginCarteInseree 
+	End If
+	Err.Clear
+
+	sFrom = "gr_informatique@ahnac.com"
+	Select Case nTypeInc 
+	Case 1		' Dossier patient
+		sTo = "malefebvre@ahnac.com;adelcroix@ahnac.com;fjasiak@ahnac.com;aravellidamioli@ahnac.com;fretoux@ahnac.com;ncontard@ahnac.com;sdehayes@ahnac.com;lzannier@ahnac.com"
+		sCc = "hotline@ahnac.com;dpeers@ahnac.com"
+		sTypeReduit = "Dossier Patient"
+	Case 2		' Rendez Vous
+		sTo = "tivascot@ahnac.com;malefebvre@ahnac.com"
+		sCc = "hotline@ahnac.com"
+		sTypeReduit = "RDV"
+	Case 3		' Firstnet
+		sTo = "malefebvre@ahnac.com;aravellidamioli@ahnac.com;fretoux@ahnac.com;ncontard@ahnac.com;sdehayes@ahnac.com;adelcroix@ahnac.com;fjasiak@ahnac.com"
+		sCc = "hotline@ahnac.com"
+		sTypeReduit = "Firstnet"
+	Case 4		' Médical/Préscription
+		sTo = "malefebvre@ahnac.com;aravellidamioli@ahnac.com;fretoux@ahnac.com;ncontard@ahnac.com;sdehayes@ahnac.com"
+		sCc = "hotline@ahnac.com"
+		sTypeReduit = "Med_Presc"
+	Case 5		' Facturation
+		sTo = "fjasiak@ahnac.com;adelcroix@ahnac.com;dpeers@ahnac.com"
+		sCc = "hotline@ahnac.com"
+		sTypeReduit = "Facturation"
+	Case 6		' PMSI/CCAM
+		sTo = "fjasiak@ahnac.com;adelcroix@ahnac.com;malefebvre@ahnac.com"
+		sCc = "hotline@ahnac.com"
+		sTypeReduit = "PMSI_CCAM"
+	Case 7		' Mouvement
+		sTo = "fjasiak@ahnac.com;adelcroix@ahnac.com;malefebvre@ahnac.com"
+		sCc = "hotline@ahnac.com;mnalepa@ahnac.com"
+		sTypeReduit = "Mouvement"
+	Case 8		' Carte CPS/CPE
+		sTo = "mnalepa@ahnac.com;adelcroix@ahnac.com;malefebvre@ahnac.com;fjasiak@ahnac.com;dpeers@ahnac.com"
+		sCc = "hotline@ahnac.com"
+		sTypeReduit = "Carte_CPx"
+	Case 9		' Intranet/Workflow
+		sTo = "mnalepa@ahnac.com;jdanielczyk@ahnac.com"
+		sCc = "hotline@ahnac.com"
+		sTypeReduit = "Sharepoint"
+	Case 10		' Sage
+		sTo = "cbaviere@ahnac.com"
+		sCc = "hotline@ahnac.com"
+		sTypeReduit = "Sage"
+	Case 11		' Titan
+		sTo = "fjasiak@ahnac.com;dpeers@ahnac.com"
+		sCc = "hotline@ahnac.com"
+		sTypeReduit = "Titan"
+	Case 12		' Générix
+		sTo = "bzoks@ahnac.com;cchoquet@ahnac.com"
+		sCc = "hotline@ahnac.com"
+		sTypeReduit = "Generix"
+	Case 13		' Optim
+		sTo = "cduhaut@ahnac.com"
+		sCc = "hotline@ahnac.com"
+		sTypeReduit = "Optim"
+	Case 14		' ADP
+		sTo = "cduhaut@ahnac.com"
+		sCc = "hotline@ahnac.com"
+		sTypeReduit = "ADP"
+	Case 15		' Open Executive
+		sTo = "hotline@ahnac.com"
+		sTypeReduit = "Open executive"
+	Case 16		' Zenidoc
+		sTo = "dpeers@ahnac.com;"
+		sCc = "hotline@ahnac.com"
+		sTypeReduit = "Zenidoc"
+	Case 17		' Axya
+		sTo = "fjasiak@ahnac.com;adelcroix@ahnac.com"
+		sCc = "hotline@ahnac.com"
+		sTypeReduit = "Axya"
+	Case 18		' PACS
+		sTo = "mnalepa@ahnac.com"
+		sCc = "hotline@ahnac.com"
+		sTypeReduit = "PACS"
+	Case 19		' Cursus
+		sTo = "sbethencourt@ahnac.com;jdanielczyk@ahnac.com"
+		sCc = "hotline@ahnac.com"
+		sTypeReduit = "Cursus"
+	Case 20		' Technique
+		sTo = "eleroy@ahnac.com;xbonhomme@ahnac.com;cpanato@ahnac.com;smeziere@ahnac.com;gchevallet@ahnac.com"
+		sCc = "hotline@ahnac.com"
+		sTypeReduit = "Technique"
+	Case Else	' Ne sais pas
+		sTypeReduit = "NSP"
+		sTo = "informatique@ahnac.com;aravellidamioli@ahnac.com;fretoux@ahnac.com;ncontard@ahnac.com;sdehayes@ahnac.com"
+	End Select
+	
+	sSubject = "<<"&sTypeReduit&">>[" & sUtilisateur & "]*[" & sComputerName & "]* Rapport d'incident. "&sLoginSSO
+
+
+	sHtml =	"Poste=" & sComputerName & " Login=" & sUserName
+	If sLoginSSO<>"" Then sHtml = sHtml & "  Login SSO="&sLoginSSO
+	sHtml = sHtml & vbCrLf 
+	Set oFso = CreateObject("Scripting.FileSystemObject")		
+	Set oFile = oFso.OpenTextFile("C:\ScriptsDosi\AdresseIP.txt", 1)
+	Do While Not oFile.AtEndOfStream
+      sHtml = sHtml & ofile.ReadLine & vbCrLf
+	Loop
+	oFile.Close
+	Set oFile = Nothing
+	Set oFso = Nothing
+	sHtml = sHtml & vbCrLf & _ 
+		"===== Utilisateur : " & sUtilisateur & " =====" & vbCrLf & vbCrLf & _ 
+		"* Type d'incident : " & sTypeReduit & vbCrLf & _ 
+		"  =-=-=--=-=-=-=-=" & vbCrLf & _ 
+		"* Contexte de l'incident :" & vbCrLf & _ 
+		"  =-=-=-=-=-=-=-=-=-=-=-=" & vbCrLf & _ 
+		sContexte & vbCrLf & vbCrLf & _
+		"* IPP :" & vbCrLf & _ 
+		"  =-=-=" & vbCrLf & _ 
+		sIPP & vbCrLf & vbCrLf & _
+		"* Description de l'incident :" & vbCrLf & _ 
+		"  =-=-=-=-=-=-=-=-=-=-=-=-=-=" & vbCrLf & _ 
+		sIncident & vbCrLf
+
+	If nHardCopy <> 1 Then sFilePath = ""
+	
+	Err.Clear
+	If UCase(Left(sComputerName,6)) = "AHNRDS" Then
+		sSubject = "Pas de copie ecran car RDS !!! " & sSubject
+		SendMail sFrom, sTo, sCc, sBcc, sSubject, sHtml, sComputerName, "", ""
+		SendMail sFrom, "<NOGLPI>mnalepa@ahnac.com", "", "", sSubject, sHtml, sComputerName, sFilePath, "X"
+	Else
+		SendMail sFrom, sTo, sCc, sBcc, sSubject, sHtml, sComputerName, sFilePath, ""
+	End If
+	
+	
+	nMailErr = Err.Number
+	On Error Goto 0
+
+	If nMailErr = 0 Then
+		sHtml = "<h2><BR><BR>Votre rapport d'incident<BR>a été transmis au<BR>service informatique</h2>"	
+		document.body.innerHTML = sHtml
+	Else
+		MsgBox "Impossible de transmettre" & vbCrLf & "votre rapport. Erreur=0x" & Hex(nMailErr) & "H"  & vbCrLf & "Veuillez appeler la hotline S.V.P."
+	End If
+	
+	window.setTimeout "window.close()", 2000
+End Sub
+
+Function QuelRadioChecked (sName)
+	Dim oElts, oElt, i
+
+	Set oElts = document.getElementsByName(sName)
+	i = 1
+	For Each oElt in oElts
+		If oElt.Checked Then Exit For
+		i = i+1
+	Next
+	If i = oElts.Length+1 Then
+		QuelRadioChecked = 0
+	Else
+		QuelRadioChecked = i	
+	End If
+End Function
+
+Sub SendMail(sFrom, sTo, sCc, sBcc, sSubject, sTextbody, sPCName, sAttachFile1,sSecondMail)
+	Dim oFso, oFile
+	Dim ixServ
+	Dim sPathServ
+	Dim sAlea
+	
+	On Error Goto 0
+
+	sAlea = "" & DateDiff("s", DateValue("30 Novembre 2012"), Now) & sSecondMail
+	On Error Resume Next
+	Set oFso = CreateObject("Scripting.FileSystemObject")		
+	For ixServ = 0 to 1
+		If ixServ = 0 Then
+			sPathServ = "\\ahneai1\Mails2Send$\"
+		else
+			sPathServ = "\\ahneai2\Mails2Send$\"
+		End If
+		Err.Clear
+		Set oFile = oFso.CreateTextFile(sPathServ & sPCName & "_" & sAlea & ".mail", True)
+		If Err.Number = 0 Then
+			oFile.WriteLine sFrom
+			oFile.WriteLine sTo
+			oFile.WriteLine sCc
+			oFile.WriteLine sBcc
+			If sAttachFile1 <> "" Then
+				oFso.CopyFile sAttachFile1, sPathServ & sPCName & "_" & sAlea & ".jpg"
+				oFile.WriteLine sPCName & "_" & sAlea & ".jpg"
+			Else
+				oFile.WriteLine ""
+			End If
+			oFile.WriteLine ""		' Prévu pour un éventuel sAttachFile2
+			oFile.WriteLine sSubject
+			oFile.WriteLine sTextbody
+			oFile.Close
+			Err.Clear
+			Exit For
+		End If
+	Next
+	' If Err.Number <> 0 Then MsgBox Err.Number & " " & Err.Description
+	Set oFso = Nothing	
+	'On Error Goto 0		Non, car sinon remet Err.Number à 0, qui n'est donc pas transmis à l'appelant
+	
+End Sub
+
+// -->
+</SCRIPT>
+
+<TABLE border="0">
+<TR><TD colspan="3" align='center'>Type d'incident <i>(Détermine les destinataires du message)</i> :</TD></TR>
+<TR><TD colspan="3"><B>Millénnium :</B> 
+<INPUT type='radio' name='TypeIncident' value='Mill_DosPat' id='Mill_DosPat'/><LABEL for='Mill_DosPat'>Dossier Patient</LABEL>
+<INPUT type='radio' name='TypeIncident' value='Mill_Rdv' id='Mill_Rdv'/><LABEL for='Mill_Rdv'>Rendez-vous</LABEL><LABEL for=''>
+<INPUT type='radio' name='TypeIncident' value='Mill_FirstNet' id='Mill_FirstNet'/><LABEL for='Mill_FirstNet'>FirstNet</LABEL>
+<INPUT type='radio' name='TypeIncident' value='Mill_Med' id='Mill_Med'/><LABEL for='Mill_Med'>Médical/Préscription</LABEL>
+<TR><TD colspan="3"><B>Millénnium Administratif :</B>
+<INPUT type='radio' name='TypeIncident' value='Mill_Fact' id='Mill_Fact'/><LABEL for='Mill_Fact'>Facturation</LABEL>
+<INPUT type='radio' name='TypeIncident' value='Mill_PMSI' id='Mill_PMSI'/><LABEL for='Mill_PMSI'>Pmsi/Ccam</LABEL>
+<INPUT type='radio' name='TypeIncident' value='Mill_Mouv' id='Mill_Mouv'/><LABEL for='Mill_Mouv'>Mouvements</LABEL>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<INPUT type='radio' name='TypeIncident' value='Mill_Mouv' id='SSO_CPx'/><LABEL for='SSO_CPx'>Carte CPS/CPE</LABEL>
+<TR><TD colspan="3"><B>Autre :</B>
+<INPUT type='radio' name='TypeIncident' value='Intra'  id='Intra'/><LABEL for='Intra'>Sharepoint</LABEL>
+<INPUT type='radio' name='TypeIncident' value='Sage' id='Sage'/><LABEL for='Sage'>Sage</LABEL>
+<INPUT type='radio' name='TypeIncident' value='Titan' id='Titan'/><LABEL for='Titan'>Titan</LABEL>
+<INPUT type='radio' name='TypeIncident' value='Generix' id='Generix'/><LABEL for='Generix'>Générix</LABEL>
+<INPUT type='radio' name='TypeIncident' value='Optim' id='Optim'/><LABEL for='Optim'>Optim</LABEL>
+<INPUT type='radio' name='TypeIncident' value='ADP' id='ADP'/><LABEL for='ADP'>ADP</LABEL>
+<INPUT type='radio' name='TypeIncident' value='OpenExec' id='OpenExec'/><LABEL for='OpenExec'>Open Executive</LABEL>
+<INPUT type='radio' name='TypeIncident' value='Zenidoc' id='Zenidoc'/><LABEL for='Zenidoc'>Zénidoc</LABEL>
+<INPUT type='radio' name='TypeIncident' value='Axya' id='Axya'/><LABEL for='Axya'>Axya</LABEL>
+<INPUT type='radio' name='TypeIncident' value='PACS' id='PACS'/><LABEL for='PACS'>Vepro/PACS</LABEL>
+<INPUT type='radio' name='TypeIncident' value='Cursus' id='Cursus'/><LABEL for='Cursus'>Cursus</LABEL>
+<INPUT type='radio' name='TypeIncident' value='Technique' id='Technique'/><LABEL for='Technique'>Technique</LABEL></TD>
+<TR><TD colspan="3"><INPUT type='radio' name='TypeIncident' value='Inconnu' id='Inconnu' Checked='True'/><LABEL for='Inconnu'>Ne sais pas</LABEL>
+<TR><TD align='center' colspan="3">Informations nécessaires<i>(Nom et N°de tel mini svp)</i> :</TD></TR>
+<TR><TD align='left' colspan="3"><TEXTAREA rows='2' cols='86' Name='Contexte' id='Contexte'></TEXTAREA></TD></TR>
+<TR><TD align='Left' colspan="3">IPP ou IEP du patient <i>(si necessaire)</i></TD><TD></TD><TD></TD></TR>
+<TR><TD align='left' colspan="3"><TEXTAREA rows='1' cols='15' Name='IEPIPP' id='IEPIPP'></TEXTAREA></TD></TR>
+<TR><TD align='center' colspan="3">Descriptif de l'incident :</TD><TD></TD><TD></TD></TR>
+<TR><TD align='left' colspan="3"><TEXTAREA rows='12' cols='86' Name='Incident' id='Incident'></TEXTAREA></TD></TR>
+<TR><TD colspan="3">Une copie d'écran a été effectuée automatiquement en appuyant sur la touche [Impr.écran].
+<BR>Si cette copie comprend des données sensibles, vous pouvez ne pas la joindre.</TD></TR>
+<TR><TD><INPUT type='radio' name='Hardcopy' value='Oui' id='CopieOui' Checked='True'/><LABEL for='CopieOui'>Joindre la copie d'écran</LABEL></TD>
+<TD colspan="2" align='right'><INPUT type='radio' name='Hardcopy' value='Non' id='CopieNon'/><LABEL for='CopieNon'>Ne pas joindre la copie d'écran</LABEL></TD></TR>
+<TR><TD>Utilisateur : <INPUT Name='Utilisateur'></INPUT></TD>
+<TD><BUTTON OnClick="Envoyer();">Envoyer le rapport</BUTTON></TD>
+<TD><BUTTON OnClick='window.close();'>Annuler</BUTTON></TD></TR>
+</TABLE>
+
+</BODY>
