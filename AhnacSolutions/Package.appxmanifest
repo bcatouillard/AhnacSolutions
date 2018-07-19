@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" xmlns:desktop="http://schemas.microsoft.com/appx/manifest/desktop/windows10" xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities" IgnorableNamespaces="uap mp desktop rescap">
+<Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" xmlns:desktop="http://schemas.microsoft.com/appx/manifest/desktop/windows10" xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities" xmlns:uap5="http://schemas.microsoft.com/appx/manifest/uap/windows10/5" IgnorableNamespaces="uap mp desktop rescap uap5">
   <Identity Name="290ab77a-c6ec-4f2d-bef6-649557e3a1c6" Publisher="CN=bcatouillard" Version="1.0.0.0" />
   <mp:PhoneIdentity PhoneProductId="290ab77a-c6ec-4f2d-bef6-649557e3a1c6" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
@@ -16,7 +16,7 @@
   <Applications>
     <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="AhnacSolutions">
       <uap:VisualElements DisplayName="AhnacSolutions" Square150x150Logo="Assets\Square150x150Logo.png" Square44x44Logo="Assets\Square44x44Logo.png" Description="AhnacSolutions" BackgroundColor="transparent">
-        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" Square310x310Logo="Assets\LargeTile.png" Square71x71Logo="Assets\SmallTile.png">
+        <uap:DefaultTile Square310x310Logo="Assets\LargeTile.png" >
         </uap:DefaultTile>
         <uap:SplashScreen Image="Assets\SplashScreen.png" />
       </uap:VisualElements>
@@ -31,6 +31,14 @@
         <uap:Extension Category="windows.appService">
           <uap:AppService Name="AhnacSolutionService" />
         </uap:Extension>
+        <uap5:Extension Category="windows.startupTask"
+                        Executable="AhnacSolutions.exe"
+                        EntryPoint="AhnacSolutions.exe">
+          <uap5:StartupTask
+              TaskId="AhnacSolutions"
+              Enabled="true"
+              DisplayName="Ahnac Solutions" />
+        </uap5:Extension>
       </Extensions>
     </Application>
   </Applications>
@@ -43,3 +51,4 @@
     <rescap:Capability Name="confirmAppClose" />
   </Capabilities>
 </Package>
+<!--Wide310x150Logo="Assets\Wide310x150Logo.png" Square71x71Logo="Assets\SmallTile.png"-->

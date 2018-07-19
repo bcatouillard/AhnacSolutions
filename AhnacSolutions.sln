@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 15.0.27703.2042
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AhnacSolutions", "AhnacSolutions\AhnacSolutions.csproj", "{6E587DED-96B5-497B-99CD-55821676FAFB}"
+	ProjectSection(ProjectDependencies) = postProject
+		{50870B3F-AFD0-44DB-AF98-9004763585D8} = {50870B3F-AFD0-44DB-AF98-9004763585D8}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Background_Task_Notifications", "Background_Task_Notifications\Background_Task_Notifications.csproj", "{C60E679B-FF2E-4F70-B3BB-E5CCEC5C372D}"
 EndProject
