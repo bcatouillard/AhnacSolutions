@@ -96,6 +96,7 @@ namespace AhnacSolutions
             if (ApiInformation.IsTypePresent("Windows.UI.StartScreen.StartScreenManager"))
             {
                 StartupTask startupTask = await StartupTask.GetAsync("AhnacSolutions");
+                StartupTaskState state = await startupTask.RequestEnableAsync();
                 var entry = (await Package.Current.GetAppListEntriesAsync())[0];
 
                 var startScreenManager = StartScreenManager.GetDefault();

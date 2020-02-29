@@ -1,0 +1,50 @@
+﻿.summary{
+		height:50px;
+	}
+	
+	.tools{
+		margin-bottom:20px;
+	}
+	
+	.boutonList a {
+		height:100px;
+		
+	}
+	.bigButton{
+		height:100px;
+		width:250px;
+	}
+	.smallButton{
+		height:100px;
+		width:125px;
+	}
+	
+	
+	.boutonList a:hover{
+		background:#c3c3c3;
+	}
+	
+	.mainform{
+		margin-left:15px;;
+	}
+	
+	legend{
+		font-size:0.8em;
+		}
+	.loader {
+	background: url('./lib/ajax-loader.gif') no-repeat center;
+	padding-left: 20px;
+	height:100px;
+}
+
+	#progressBar{
+		height:50px;
+	}
+
+    .footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
+    background-color: #f5f5f5;
+}

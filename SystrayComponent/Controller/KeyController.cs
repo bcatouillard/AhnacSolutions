@@ -36,8 +36,8 @@ namespace SystrayComponent.Controller
 
         public void FormShow()
         {
-            MakeScreenShot();
-            Open_HTA(Path.Combine(AppDomain.CurrentDomain.BaseDirectory +".\\Lib\\Form\\TransmetIncident.HTA"));
+           MakeScreenShot();
+           Open_HTA(Application.StartupPath + @"\Lib\Form\TransmetIncident.HTA");
         }
 
         public void MakeScreenShot()
@@ -54,7 +54,9 @@ namespace SystrayComponent.Controller
                                      new Size(SystemInformation.VirtualScreen.Width, SystemInformation.VirtualScreen.Height),
                                      CopyPixelOperation.SourceCopy);
                 }
-                bmpScreenCapture.Save(AppDomain.CurrentDomain.BaseDirectory + "Lib\\Form\\temp\\screenshot.jpg");
+                
+                String path = Application.StartupPath + @"\Lib\Form\temp\screenshot.jpeg";
+                bmpScreenCapture.Save( path, ImageFormat.Jpeg);
             }
         }
 

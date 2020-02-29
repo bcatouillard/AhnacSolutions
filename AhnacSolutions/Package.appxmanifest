@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" xmlns:desktop="http://schemas.microsoft.com/appx/manifest/desktop/windows10" xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities" xmlns:uap5="http://schemas.microsoft.com/appx/manifest/uap/windows10/5" IgnorableNamespaces="uap mp desktop rescap uap5">
-  <Identity Name="290ab77a-c6ec-4f2d-bef6-649557e3a1c6" Publisher="CN=bcatouillard" Version="1.0.0.0" />
+  <Identity Name="AhnacSolutions" Publisher="CN=bcatouillard" Version="1.0.0.0" />
   <mp:PhoneIdentity PhoneProductId="290ab77a-c6ec-4f2d-bef6-649557e3a1c6" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>AhnacSolutions</DisplayName>
-    <PublisherDisplayName>bcatouillard</PublisherDisplayName>
+    <PublisherDisplayName>AHNAC</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
   <Dependencies>
@@ -16,12 +16,15 @@
   <Applications>
     <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="AhnacSolutions">
       <uap:VisualElements DisplayName="AhnacSolutions" Square150x150Logo="Assets\Square150x150Logo.png" Square44x44Logo="Assets\Square44x44Logo.png" Description="AhnacSolutions" BackgroundColor="transparent">
-        <uap:DefaultTile Square310x310Logo="Assets\LargeTile.png" >
+        <uap:DefaultTile Square310x310Logo="Assets\LargeTile.png" Wide310x150Logo="Assets\WideTile.png" Square71x71Logo="Assets\SmallTile.png">
         </uap:DefaultTile>
         <uap:SplashScreen Image="Assets\SplashScreen.png" />
       </uap:VisualElements>
       <Extensions>
         <desktop:Extension Category="windows.fullTrustProcess" Executable="Win32/SystrayComponent.exe" />
+        <uap5:Extension Category="windows.startupTask" Executable="AhnacSolutions.exe" EntryPoint="AhnacSolutions.exe">
+          <uap5:StartupTask TaskId="AhnacSolutions" Enabled="true" DisplayName="Ahnac Solutions" />
+        </uap5:Extension>
         <Extension Category="windows.backgroundTasks" EntryPoint="Background_Task_Notifications.ToastNotificationsBackgroundTask">
           <BackgroundTasks>
             <Task Type="general" />
@@ -31,14 +34,6 @@
         <uap:Extension Category="windows.appService">
           <uap:AppService Name="AhnacSolutionService" />
         </uap:Extension>
-        <uap5:Extension Category="windows.startupTask"
-                        Executable="AhnacSolutions.exe"
-                        EntryPoint="AhnacSolutions.exe">
-          <uap5:StartupTask
-              TaskId="AhnacSolutions"
-              Enabled="true"
-              DisplayName="Ahnac Solutions" />
-        </uap5:Extension>
       </Extensions>
     </Application>
   </Applications>

@@ -1,0 +1,233 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <script language="JavaScript" type="text/JavaScript" src="./lib/jquery/jquery-1.10.2.min.js"></script>
+    <script language="JavaScript" type="text/JavaScript" src="./lib/jquery-ui-1.12.1/jquery-ui.min.js"></script>
+    <script language="JavaScript" type="text/JavaScript" src="./lib/jquery/jquery.xmlrpc.js"></script>
+    <script language="JavaScript" type="text/JavaScript" src="./lib/raphael.min.js"></script>
+    <script language="JavaScript" type="text/JavaScript" src="./lib/angular.min.js"></script>
+
+
+    <script language="JavaScript" type="text/JavaScript" src="./lib/progressStep.min.js"></script>
+
+    <link href="./lib/jquery-ui-1.12.1/jquery-ui.min.css" rel="stylesheet" type="text/css"></link>
+    <link href="./lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"></link>
+
+    <script language="JavaScript" type="text/JavaScript" src="./lib/bootstrap/js/bootstrap.js"></script>
+
+    <!-- script language="JavaScript" type="text/JavaScript" src="./lib/incidentForm.js"></script -->
+    <link href="./lib/incidentForm.css" rel="stylesheet" type="text/css"></link>
+	
+	<!-- FIREBUG -->
+	<script language="JavaScript" type="text/JavaScript" src="./lib/firebug-lite-debug.js"></script>
+ 
+
+
+    <title>Transmission d'incident</title>
+    <hta:application id="oHTA"
+        applicationname="TransmetIncident"
+        border="thick"
+        innerBorder="no"
+        borderstyle="normal"
+        caption="yes"
+        icon="c:\windows\notepad.exe,1"
+        maximizebutton="no"
+        minimizebutton="no"
+        showintaskbar="no"
+        singleinstance="yes"
+        sysmenu="yes"
+        version="1.0"
+        windowstate="normal" />
+
+
+</head>
+<body>  
+           
+				<form method="post" action="http://support.ahnac.net/formulaire/TransmetIncident.php" id="mainform" target="iform" class="hidden" >
+					<input type="text" id="image" name="image"/>
+					<input type="text" id="user" name="user"/>					
+				
+				</form>
+				 
+				<iframe  name="iform" id="iform" style="border:0;">test</iframe>
+				
+                
+                <div class="hidden">
+                     <img src="./temp/screenshot.jpg" id="screenshot" class="" />
+                </div>
+
+                <div class="hidden container " id="error">
+                    <div class="row">
+                        <div class="col-md-6 col-md-offset-3">
+                            <div class="alert alert-danger" role="alert">
+                                <h3>Echec de la connexion réseau.</h3>
+                                <p>Le formulaire n'est pas disponible sur cet ordinateur. Merci d'envoyer un mail à <a href="mailto:hotline@ahnac.com">hotline@ahnac.com</a> ou par téléphone au : 03.21.79.69.20</p>
+
+                            </div>
+
+                        </div>
+                       
+
+                    </div>
+                     
+                </div>
+
+                
+
+ 
+
+   <script>
+   
+   var user = {};
+   var image = "";
+   
+   
+   function ping(){
+		
+       $.ajax({
+           url: "http://support.ahnac.net/formulaire/lib/ping.txt",
+           dataType: 'json'           
+       }).success(function (data) {
+          
+
+       }).error(function (data) {
+           $("#iform").hide();
+           $('#error').removeClass("hidden");
+       });
+   }
+   // ****************************** //
+   function encodeImg(callback){
+                var c = document.createElement('canvas');
+                var ctx = c.getContext("2d");
+                var img = new Image();
+                img.onload = function () {
+                    c.width = this.width;
+                    c.height = this.height;
+                    ctx.drawImage(img, 0, 0);
+                    var dataURL = c.toDataURL("image/jpeg");
+                   // $(".container").append(c);
+				   image = dataURL.split(',')[1];
+				   callback();
+                };
+				
+				img.setAttribute('crossOrigin', 'anonymous');
+                
+                img.src = $('#screenshot').attr('src');
+               
+			  // callback();
+            }
+			
+    function getSSOName() {
+		var loginSSo = "";
+		try {
+			oFso = new ActiveXObject("SSO_CPX_Agentl.SimpleObject");
+			loginSSo = oFso.GetLoginCarteInseree();
+
+		} catch (err) {
+			// do nothing
+		};
+
+		return loginSSo;
+	}
+
+	 function getWinUsername() {
+		var objUserInfo = new ActiveXObject("WScript.network");
+
+		return objUserInfo.UserName;
+	}
+
+	function getComputername() {
+		var objUserInfo = new ActiveXObject("WScript.network");
+
+		return objUserInfo.ComputerName;
+
+
+	}
+
+	function getIPAddress() {
+		var oShell = new ActiveXObject("WScript.Shell");
+		var test = oShell.exec('cmd /C (for /f "tokens=1,* delims=:" %a in (' + "'ipconfig ^| FIND " + '"Adresse IPv4"' + "') do @echo %b)");
+		var IPAddress = test.StdOut.ReadAll().replace('\r', '');
+		IPAddress = IPAddress.replace('\n', '');
+		IPAddress = IPAddress.trim();
+
+		return IPAddress;
+	}
+	
+	function getUserInfo(callback) {
+
+
+	    user.ssoLogin = getSSOName();
+	    user.winLogin = getWinUsername();
+	    user.ipAddress = getIPAddress();
+	    user.computerName = getComputername();
+
+
+	    if (user.winLogin != "")
+	        user.glpiLogin = user.winLogin;
+	    if (user.ssoLogin != "")
+	        user.glpiLogin = user.ssoLogin;
+
+	    $("#user").attr("value", JSON.stringify(user));
+
+	    callback();
+        /*
+              $.getJSON('./temp/userInfo.json') 
+				.done(function(data) {
+						user = JSON.parse(data);
+					callback();
+				})
+				
+			*/  
+			  
+            }
+
+            // ****************************** //
+			
+	$(function() {
+	
+	
+		$("#iform").height($( window ).height()-5);
+		$("#iform").width($( window ).width()-5);
+	
+		ping();
+
+
+		encodeImg(function(){
+		
+			$('#image').val(image);
+			getUserInfo(function(){
+					
+					
+					$("#mainform").submit();
+			
+			})
+				
+					
+					//window.close();
+				
+				
+				
+		
+			
+		
+		});
+    
+	
+	
+	});
+   
+   
+   
+   </script>
+
+
+   
+
+   
+
+
+</body>
+
+</html>

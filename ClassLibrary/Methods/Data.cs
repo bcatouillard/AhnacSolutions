@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using Windows.Data.Xml.Dom;
 using ClassLibrary.Classes;
 using Microsoft.Toolkit.Uwp.Notifications;
+using System.IO;
 
 namespace ClassLibrary.Methods
 {
@@ -45,7 +46,7 @@ namespace ClassLibrary.Methods
             try
             {
                 var http = new HttpClient();
-                var url = String.Format("http://alertmanager.ahnac.com/JSON/alerts.test.json");
+                var url = String.Format("http://alertmanager.ahnac.com/JSON/alerts.json");
                 http.BaseAddress = new Uri(url);
                 http.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
                 HttpResponseMessage response = http.GetAsync(url).Result;
@@ -61,7 +62,7 @@ namespace ClassLibrary.Methods
             {
                 string title = "Erreur Connexion";
                 string content = "Connexion à AHNAC perdue";
-                string logo = "File:///C:/Users/bcatouillard/source/repos/AhnacSolutions/AhnacSolutions/Assets/Alerts/network_critic.png";
+                string logo = "File:///" + Path.GetFullPath("Assets") + "\\Alerts\\network_critic.png";
                 string criticity = "";
                 var deliverabletime = DateTimeOffset.Now;
                 string link = "";
@@ -81,7 +82,7 @@ namespace ClassLibrary.Methods
             string title = "";
             string content = "";
             string logo = "";
-            string localdate = String.Format(format, "03/05/2018 14:00:00" /*DateTime.Now*/);
+            string localdate = String.Format(format, DateTime.Now);
             var hostName = System.Net.Dns.GetHostName();
 
             foreach (JToken alert in alertList["alert"])
@@ -90,7 +91,7 @@ namespace ClassLibrary.Methods
                 string endDate = String.Format(format, alert["endDate"]);
                 if ((DateTime.Compare(DateTime.Parse(startDate), DateTime.Parse(localdate)) <= 0 && DateTime.Compare(DateTime.Parse(localdate), DateTime.Parse(endDate)) <= 0) 
                 && 
-                    (alert["status"]!=null && (string) alert["status"] == "disabled")
+                    (alert["status"]!=null && (string) alert["status"] == "active")
                 && (
                         (alert["pcFilter"] == null || alert["pcFilter"].Count() == 0)
                         ||
@@ -220,8 +221,8 @@ namespace ClassLibrary.Methods
         private void ContentToast(string title, string content, string logo, JToken alert, string criticity, DateTimeOffset deliverabletime, string link, string linkLabel)
         {
             title = (string)alert["title"];
-            content = (string) alert["message"]; 
-            logo = "File:///C:/Users/bcatouillard/source/repos/AhnacSolutions/AhnacSolutions/Assets/Alerts/" + alert["image"];
+            content =  (string) alert["message"];
+            logo = "File:///"+ Path.GetFullPath("Assets") + "\\Alerts\\" + alert["image"];
             int connexion = 0;
             CreateToasts(title, content, logo, criticity, deliverabletime, link, linkLabel, connexion);
         }
