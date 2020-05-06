@@ -10,7 +10,7 @@
 # default for csharp files.
 # Note: This is only used by command line
 ###############################################################################
-*.cs     linguist-detectable=true
+*.cs     linguist-detectable=true diff=csharp
 *.js linguist-detectable=false
 
 ###############################################################################
